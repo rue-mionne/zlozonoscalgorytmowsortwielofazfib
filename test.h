@@ -10,8 +10,11 @@ class Test{
 		int n;
 		Funkcja* funkcja;
 	public:
+		Test();
 		void wykonajTest();
-		void usunWynik(std::string, int);
+		void usunWynik(std::string);
+		void inicjujTest(int);
+	//	&Test operator=(Test*);
 };
 
 #endif

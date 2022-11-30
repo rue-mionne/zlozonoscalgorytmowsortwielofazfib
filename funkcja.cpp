@@ -33,3 +33,9 @@ std::string Funkcja::wypiszWyniki(){
 	}
 	return wyniki;
 }
+
+int Funkcja::wykonajFunkcje(int n){
+	int temp=cialo(n);
+	dodajWynik(n, temp);
+	return temp;
+}

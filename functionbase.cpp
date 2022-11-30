@@ -6,7 +6,7 @@
 
 int dummy(int);
 int tempLicznik;
-int (*funkcja)(int)= dummy;
+int (*wskfunkcja)(int)= dummy;
 
 
 
