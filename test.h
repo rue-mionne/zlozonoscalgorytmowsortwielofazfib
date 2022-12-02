@@ -14,7 +14,8 @@ class Test{
 		void wykonajTest();
 		void usunWynik(std::string);
 		void inicjujTest(int);
-	//	&Test operator=(Test*);
+		std::string wyswietlWyniki(){return funkcja->wypiszWyniki();}
+		Test& operator=(Test&);
 };
 
 #endif
