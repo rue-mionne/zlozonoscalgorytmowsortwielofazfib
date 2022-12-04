@@ -12,6 +12,7 @@ class IFunkcja{
 		virtual int wykonajFunkcje(int)=0;
 		virtual void usunWynik(int)=0;
 		virtual std::string wypiszWyniki()=0;
+		virtual void eksportujWyniki(std::string)=0;
 };
 
 class Funkcja:public IFunkcja{
@@ -26,6 +27,7 @@ class Funkcja:public IFunkcja{
 		int wykonajFunkcje(int) override;
 		void usunWynik(int) override;
 		std::string wypiszWyniki() override;
+		void eksportujWyniki(std::string) override;
 };
 
 

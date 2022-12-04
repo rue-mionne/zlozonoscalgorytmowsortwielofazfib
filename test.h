@@ -16,6 +16,7 @@ class Test{
 		void inicjujTest(int);
 		std::string wyswietlWyniki(){return funkcja->wypiszWyniki();}
 		Test& operator=(Test&);
+		void eksportujWyniki(std::string sciezka){funkcja->eksportujWyniki(sciezka);}
 };
 
 #endif
