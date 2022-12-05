@@ -49,6 +49,7 @@ int dummy(int n){
 	tempLicznik=0;
 	for(int i=n; i>0; --i){
 		gt(1, 2);
+		lt(1,2);
 	}
 	return tempLicznik;
 }
