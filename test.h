@@ -3,20 +3,20 @@
 
 #include <cstdlib>
 #include <string>
-#include "funkcja.h"
+#include "itestable.h"
 
 class Test{
 	private:
 		int n;
-		Funkcja* funkcja;
+		Itestable* algorytm;
 	public:
 		Test();
 		void wykonajTest();
 		void usunWynik(std::string);
 		void inicjujTest(int);
-		std::string wyswietlWyniki(){return funkcja->wypiszWyniki();}
+		std::string wyswietlWyniki();
 		Test& operator=(Test&);
-		void eksportujWyniki(std::string sciezka){funkcja->eksportujWyniki(sciezka);}
+		void eksportujWyniki(std::string sciezka);
 };
 
 #endif

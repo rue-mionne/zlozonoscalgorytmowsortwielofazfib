@@ -1,19 +1,19 @@
 #include "test.h"
 #include "functionbase.h"
-#include "funkcja.h"
+#include "itestable.h"
 #include <string>
 #include <cstdlib>
 #include <stdio.h>
 #include <iostream>
 
 Test::Test(){
-	this->funkcja=new Funkcja(wskfunkcja, "test");
+	//this->algorytm=new Algorytm(wskfunkcja, "test");
 }
 
 
 Test& Test::operator=(Test& wzor){
 	if(&wzor==this) return *this;
-	funkcja=wzor.funkcja;
+	//funkcja=wzor.funkcja;
 	int n;
 	std::cout << "Podaj liczbę elementów:";
 	std::cin >> n;
@@ -22,10 +22,10 @@ Test& Test::operator=(Test& wzor){
 }
 
 void Test::wykonajTest(){
-	funkcja->wykonajFunkcje(n);
+	algorytm->start();
 
 }
 
 void Test::inicjujTest(int n){
-	this->n = n;
+	//this->n = n;
 }
