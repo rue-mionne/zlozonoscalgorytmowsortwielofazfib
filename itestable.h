@@ -4,7 +4,7 @@
 #include <map>
 
 class Itestable{
-	private:
+	protected:
 		static std::map<int,int*> wynikiAlgorytmu;
 		static int id;
 		int count;
@@ -20,7 +20,7 @@ class Itestable{
 		virtual void start()=0;
 		int getn(){return n;}
 		int getCount(){return count;}
-		std::map<int,int*>* zwrocWynikiAnalizyAlg();
+		static std::map<int,int*>* zwrocWynikiAnalizyAlg();
 };
 
 #endif
