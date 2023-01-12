@@ -13,7 +13,7 @@ class FileHandler{
 		std::fstream strumien;
 		FileHandler(std::string);
 		void otworzPlik();
-		void przesunOdczytOJeden();
+		void przesunOdczytOJeden(); //prawdopodobnie niepotrzebna funkcja! zajrzeć do sympfonii i sprawdzić jak operatory << >> traktują niepasujące dane
 		void przesunZapisNaKoniec();
 		void resetuj();
 		void zakoncz();
