@@ -7,7 +7,7 @@ FileHandler::FileHandler(std::string sciezka){
 }
 
 void FileHandler::otworzPlik(){
-	strumien.open(sciezka);
+	strumien.open(sciezka, std::ios_base::in | std::ios_base::out | std::ios_base::binary);
 	strumien.seekp(0);
 	strumien.seekg(0);
 }

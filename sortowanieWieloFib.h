@@ -15,10 +15,17 @@ class SortowanieWieloFib:public Itestable{
 	private:
 		std::string* pliki;
 		FileHandler* opiekunowie[4];
+		FileHandler* pusty;
+		FileHandler* zrodlo1;
+		FileHandler* zrodlo2;
+		FileHandler* zrodlo3;
+		FileHandler* temp;
 
 		std::vector<int> FibTab[4];
 		void wyliczRzad();
 		void wyliczFibSume();
+		int* wyliczPodzial(); //uwaga, alokuje tablice
+		void przydzielPartie(int* , int);
 };
 
 #endif

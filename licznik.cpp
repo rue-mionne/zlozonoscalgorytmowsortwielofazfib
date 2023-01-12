@@ -12,7 +12,7 @@ int Timer::stepRange(){
 	if(range.count>=range.end){
 		throw new EndOfRangeExc;
 	}
-	range.count++; //TODO: krok o określoną odległość zamiast o 1
+	range.count+=100; 
 	return range.count;
 }
 

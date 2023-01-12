@@ -7,11 +7,10 @@
 class FileHandler{
 	private:
 		std::string sciezka;
-		std::fstream strumien;
-
 		int dlugoscPliku;
 		int wielkoscBloku;
 	public:
+		std::fstream strumien;
 		FileHandler(std::string);
 		void otworzPlik();
 		void przesunOdczytOJeden();
@@ -20,6 +19,8 @@ class FileHandler{
 		void zakoncz();
 		void setDlugoscPliku(int dlugosc){dlugoscPliku=dlugosc;}
 		void setWielkoscBloku(int wielkosc){wielkoscBloku=wielkosc;}
+		int getDlugoscPliku(){return dlugoscPliku;}
+		int getWielkoscBloku(){return wielkoscBloku;}
 };
 
 #endif
