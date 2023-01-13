@@ -6,13 +6,14 @@
 
 SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki){
 	this->n=n;
-	//this->pliki=pliki;
+	pojemniczek.pliki=pliki;
 	count = 0;
 
 }
 
 int SortowanieWieloFib::sortuj(){
-	
+	przygotujDoSortowania();
+
 	return 0; //placeholder
 }
 
@@ -40,20 +41,29 @@ void SortowanieWieloFib::zmianaPlikow(){
 	zrodlo3=temp;
 }
 
+void SortowanieWieloFib::sortowaniePrzezScalanie(){
+	int wielkoscBloku=0;
+	while(wielkoscBloku<n){
+		sortujPrzezScalanieFaza1();
+		sortujPrzezScalanieFaza2();
+		przesunWolneBloki();
+	}
+}
+
 void SortowanieWieloFib::sortujPrzezScalanieFaza1(){
-	zrodlo1->resetuj(); //przesuwanie wskaźników zapisu i odczytu na początek
-	zrodlo2->resetuj();
+	//zrodlo1->resetuj(); //przesuwanie wskaźników zapisu i odczytu na początek
+//	zrodlo2->resetuj();
 	zrodlo1->przesunZapisNaKoniec(); //przygotowanie zapisu scalonego ciągu na końcu najkrótszego pliku
-	sortowaniePrzezScalanie(zrodlo1, zrodlo2, zrodlo1);
+	sortowaniePrzezScalaniePlik(zrodlo1, zrodlo2, zrodlo1);
 }
 
 void SortowanieWieloFib::sortujPrzezScalanieFaza2(){
 	zrodlo3->resetuj();
 	pusty->resetuj();
-	sortowaniePrzezScalanie(zrodlo1, zrodlo3, pusty);
+	sortowaniePrzezScalaniePlik(zrodlo1, zrodlo3, pusty);
 }
 
-void SortowanieWieloFib::sortowaniePrzezScalanie(FileHandler* zrodlo1, FileHandler* zrodlo2, FileHandler* cel){
+void SortowanieWieloFib::sortowaniePrzezScalaniePlik(FileHandler* zrodlo1, FileHandler* zrodlo2, FileHandler* cel){
 	int petla=zrodlo1->getDlugoscPliku()/zrodlo1->getWielkoscBloku();
 	for(int i = 0; i < petla; i++){
 		sortowaniePrzezScalanieBlok(zrodlo1, zrodlo2, cel);
@@ -95,3 +105,19 @@ void SortowanieWieloFib::sortowaniePrzezScalanieBlok(FileHandler* zrodlo1, FileH
 		}
 	}	
 }
+/*
+void SortowanieWieloFib::przesunWolneBloki(){
+	pusty->setWielkoscBloku(zrodlo1->getWielkoscBloku()+zrodlo2->getWielkoscBloku()+zrodlo3->getWielkoscBloku());
+	zrodlo2->strumien.seekp(0);
+	while(!zrodlo2->strumien.eof()){
+		int temp;
+		zrodlo2->strumien >> temp;
+		zrodlo2->strumien << temp;
+	}
+	zrodlo3->strumien.seekp(0);
+	while(!zrodlo3->strumien.eof()){
+		int temp;
+		zrodlo3->strumien >> temp;
+		zrodlo3->strumien << temp;
+	}
+}*/
