@@ -3,17 +3,22 @@
 
 #include <cstdlib>
 #include <string>
-#include "funkcja.h"
+#include "itestable.h"
+#include "licznik.h"
 
 class Test{
 	private:
 		int n;
-		Funkcja* funkcja;
-	public:
-		Test(std::string);
+		Itestable* algorytm;
+		Timer* licznik;
+	
+  public:
+		Test();
 		void wykonajTest();
-		void usunWynik(std::string);
-		void inicjujTest(int);
+		void inicjujTest(int, int, int);
+		void rozpocznijSerię();
+		std::string wyswietlWyniki();
+		void eksportujWyniki(std::string sciezka);
 };
 
 #endif

@@ -1,9 +1,11 @@
 #include <cstdlib>
 #include <cstdio>
+#include <ios>
 #include <iterator>
-#include <ostream>
+#include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include "functionbase.h"
 #include "funkcja.h"
 
@@ -32,4 +34,18 @@ std::string Funkcja::wypiszWyniki(){
 
 	}
 	return wyniki;
+}
+
+int Funkcja::wykonajFunkcje(int n){
+	int temp=cialo(n);
+	dodajWynik(n, temp);
+	return temp;
+}
+
+void Funkcja::eksportujWyniki(std::string sciezka){
+	std::fstream outstream(sciezka);
+	for(std::map<int, int>::iterator it = wynikiDlaFunkcji.begin(); it != wynikiDlaFunkcji.end(); ++it){
+		outstream << it->first << " " << it->second << "\n";
+	}
+	outstream.close();
 }
