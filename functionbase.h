@@ -3,4 +3,5 @@
 
 extern int (*wskfunkcja)(int);
 
+
 #endif

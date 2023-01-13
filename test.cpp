@@ -1,5 +1,6 @@
 #include "test.h"
 #include "functionbase.h"
+
 #include "itestable.h"
 #include "licznik.h"
 #include <istream>

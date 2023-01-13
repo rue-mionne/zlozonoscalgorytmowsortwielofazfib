@@ -11,7 +11,8 @@ class Test{
 		int n;
 		Itestable* algorytm;
 		Timer* licznik;
-	public:
+	
+  public:
 		Test();
 		void wykonajTest();
 		void inicjujTest(int, int, int);
