@@ -9,12 +9,7 @@
 class ZmiennePomSortowania{
 	public:
 	FileHandler* opiekunowie[4];
-	FileHandler* pusty;
-	FileHandler* zrodlo1;
-	FileHandler* zrodlo2;
-	FileHandler* zrodlo3;
-	FileHandler* temp;
-	std::string* pliki;
+		std::string* pliki;
 
 };
 
@@ -29,7 +24,13 @@ class SortowanieWieloFib:public Itestable{
 		//
 	// TODO: wydzielić części sortowania i dystrybucji na klasy w celu zmniejszenia rozmiaru plików
 	//
-		std::vector<int> FibTab[4]; //wektor: struktura przypominająca listę dwustronnie łączoną w implementacji tablicowej, jej zaletą, którą projekt wykorzystuje jest szybki dostęp do ostatniego elementui jej duża elastyczność
+		std::vector<int> FibTab[4]; //wektor<T>: struktura przypominająca listę dwustronnie łączoną w implementacji tablicowej, jej zaletą, którą projekt wykorzystuje jest szybki dostęp do ostatniego elementu i jej duża elastyczność, ponadto ewentualne zmiany wymagajace dostepu do innych elementow nie wplyna negatywnie na wydajnosc (w przeciwienstwie do list<T>, bedacej lista w implementacji wskaznikowej)
+		FileHandler* pusty;
+		FileHandler* zrodlo1;
+		FileHandler* zrodlo2;
+		FileHandler* zrodlo3;
+		FileHandler* temp;
+
 		void wyliczRzad();
 		void wyliczFibSume();
 		int* wyliczPodzial(); //uwaga, alokuje tablice
@@ -37,9 +38,12 @@ class SortowanieWieloFib:public Itestable{
 		
 		void przygotujDoSortowania();
 		void zmianaPlikow();
+		void sortowaniePrzezScalanie();
 		void sortujPrzezScalanieFaza1();
 		void sortujPrzezScalanieFaza2();
-		void sortowaniePrzezScalanie();
+		void sortowaniePrzezScalaniePlik(FileHandler*, FileHandler*, FileHandler*);
+		void sortowaniePrzezScalanieBlok(FileHandler*, FileHandler*, FileHandler*);
+		void przesunWolneBloki();
 };
 
 

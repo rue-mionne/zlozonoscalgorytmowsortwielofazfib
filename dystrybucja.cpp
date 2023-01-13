@@ -2,6 +2,7 @@
 #include "fileHandler.h"
 #include <cstdint>
 #include <vector>
+#include <limits>
 
 Dystrybucja::Dystrybucja(int size):n(size){}
 
@@ -16,14 +17,14 @@ std::vector<int> * Dystrybucja::dzialaj(){
 	wyliczRzad();
 	int * tablicaPodzialu = wyliczPodzial();
 	while(suma<n){
-		przydzielPartie(tablicaPodzialu);
-		delete tablicaPodzialu;
-		tablicaPodzialu = wyliczPodzial();
-		suma = FibTab[3].back();
+		przydzielPartie(tablicaPodzialu); //przeniesienie danych wedlug wyliczonego rzedu
+		delete tablicaPodzialu; //po spelnieniu zadania, przed stworzeniem nowej tablicy, stara musi zostac usunieta w celu unikniecia wycieku pamieci
+		tablicaPodzialu = wyliczPodzial(); //wyliczenie kolejnego rzedu
+		suma = FibTab[3].back(); //zapisanie ilosci wydystrybuowanych elementow
 	}
-	pojemnik->opiekunowie[3]->przesunZapisNaKoniec();
+	pojemnik->opiekunowie[3]->przesunZapisNaKoniec(); //przygotowanie pliku zrodlowego do ostatniej dystrybucji: brakujaca liczba elementow zostaje uzupelniona +nieskonczonoscia uzyskanej dzieki bibliotece limits
 	for(int i=suma-n; i>0; i--){
-		pojemnik->opiekunowie[3]->strumien << INT16_MAX << " ";
+		pojemnik->opiekunowie[3]->strumien << std::numeric_limits<int>::max() << " ";
 	}
 	przydzielPartie(tablicaPodzialu);
 	delete tablicaPodzialu;
@@ -76,9 +77,7 @@ void Dystrybucja::przydzielPartie(int* tablicaPodzialu){
 	for(int i = 0; i<3; i++){
 		for(int j = 0; j<tablicaPodzialu[i]; j++){
 			int temp;
-			char waste;
 			pojemnik->opiekunowie[3]->strumien >> temp;
-			pojemnik->opiekunowie[3]->strumien.get(waste);
 			pojemnik->opiekunowie[i]->strumien << temp << " ";
 		}
 	}
