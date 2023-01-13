@@ -17,8 +17,9 @@ void FileHandler::przesunZapisNaKoniec(){
 }
 
 void FileHandler::resetuj(){
-	strumien.seekp(0, std::ios_base::beg);
+	strumien.seekp(0, std::ios_base::beg);//przesuniecie wskaznikow odczytu i zapisu na poczatek
 	strumien.seekg(0, std::ios_base::beg);
+	strumien.clear(); //usuniecie ewentualnej flagi konca pliku
 }
 
 void FileHandler::zakoncz(){
