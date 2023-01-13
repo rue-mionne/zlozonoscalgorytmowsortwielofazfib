@@ -12,10 +12,6 @@ void FileHandler::otworzPlik(){
 	strumien.seekg(0);
 }
 
-void FileHandler::przesunOdczytOJeden(){
-	strumien.seekg(1, std::ios_base::cur);
-}
-
 void FileHandler::przesunZapisNaKoniec(){
 	strumien.seekp(0, std::ios_base::end);
 }
