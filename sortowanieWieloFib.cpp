@@ -6,7 +6,7 @@
 
 SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki){
 	this->n=n;
-	this->pliki=pliki;
+	//this->pliki=pliki;
 	count = 0;
 
 }
