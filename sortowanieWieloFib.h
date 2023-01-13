@@ -43,7 +43,7 @@ class SortowanieWieloFib:public Itestable{
 		void sortujPrzezScalanieFaza2();
 		void sortowaniePrzezScalaniePlik(FileHandler*, FileHandler*, FileHandler*);
 		void sortowaniePrzezScalanieBlok(FileHandler*, FileHandler*, FileHandler*);
-		void przesunWolneBloki();
+		void zaktualizujPustyPlik();
 };
 
 
