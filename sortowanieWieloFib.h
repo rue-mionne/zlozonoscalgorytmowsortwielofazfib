@@ -14,12 +14,15 @@ class SortowanieWieloFib:public Itestable{
 		SortowanieWieloFib(int, std::string*);
 		int sortuj();
 		void start()override;
-	private:
+
+//SERIA ZMIENNYCH TYMCZASOWO PUBLICZNYCH
+
 		ZmiennePomSortowania pojemniczek;
+		std::vector<int> FibTab[4]; //wektor<T>: struktura przypominająca listę dwustronnie łączoną w implementacji tablicowej, jej zaletą, którą projekt wykorzystuje jest szybki dostęp do ostatniego elementu i jej duża elastyczność, ponadto ewentualne zmiany wymagajace dostepu do innych elementow nie wplyna negatywnie na wydajnosc (w przeciwienstwie do list<T>, bedacej lista w implementacji wskaznikowej)
+	private:
 
 		Dystrybucja dystrybucja;
 
-		std::vector<int> FibTab[4]; //wektor<T>: struktura przypominająca listę dwustronnie łączoną w implementacji tablicowej, jej zaletą, którą projekt wykorzystuje jest szybki dostęp do ostatniego elementu i jej duża elastyczność, ponadto ewentualne zmiany wymagajace dostepu do innych elementow nie wplyna negatywnie na wydajnosc (w przeciwienstwie do list<T>, bedacej lista w implementacji wskaznikowej)
 		FileHandler* pusty;
 		FileHandler* zrodlo1;
 		FileHandler* zrodlo2;
@@ -31,6 +34,7 @@ class SortowanieWieloFib:public Itestable{
 		int* wyliczPodzial(); //uwaga, alokuje tablice
 		void przydzielPartie(int* , int);
 		
+	public:	
 		void przygotujDoSortowania();
 		void zmianaPlikow();
 		void sortowaniePrzezScalanie();

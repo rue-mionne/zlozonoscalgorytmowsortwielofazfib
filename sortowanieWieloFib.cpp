@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <ostream>
 
 SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki):dystrybucja(n, &pojemniczek){
 	std::cout << "\nKonstr sort";
@@ -16,12 +17,14 @@ SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki):dystrybucja(n,
 
 //TODO: ukoncz start
 void SortowanieWieloFib::start(){
+	std::cout << "\nstart";
 	dystrybucja.dzialaj();	
 	sortuj();
 
 }
 
 int SortowanieWieloFib::sortuj(){
+	std::cout <<"\nsortuj";
 	przygotujDoSortowania();
 	sortowaniePrzezScalanie();
 	return 0; //placeholder
@@ -32,6 +35,7 @@ int SortowanieWieloFib::sortuj(){
 //
 
 void SortowanieWieloFib::przygotujDoSortowania(){
+	std::cout << "\nprzygotuj\n" ;
 	zrodlo1=pojemniczek.opiekunowie[0];
 	zrodlo2=pojemniczek.opiekunowie[1];
 	zrodlo3=pojemniczek.opiekunowie[2];
@@ -44,6 +48,8 @@ void SortowanieWieloFib::przygotujDoSortowania(){
 }
 
 void SortowanieWieloFib::zmianaPlikow(){ //konieczne wyznaczenie plikow o najmniejszej i najwiekszej ilosci blokow: kolejnym celem jest zawsze ten o najmniejszej ilosci, ale sam algorytm nie przesuwa sie cyklicznie
+	std::cout << "zmiana\n";
+	
 	temp=pusty;
 	int liczbaBlokow[3];
 	FileHandler* tempHandlery[3];
@@ -74,6 +80,7 @@ void SortowanieWieloFib::zmianaPlikow(){ //konieczne wyznaczenie plikow o najmni
 }
 
 void SortowanieWieloFib::sortowaniePrzezScalanie(){
+	std::cout << "sortmain\n";
 	int wielkoscBloku=0;
 	while(wielkoscBloku<n){
 		sortujPrzezScalanieFaza1();
@@ -84,16 +91,19 @@ void SortowanieWieloFib::sortowaniePrzezScalanie(){
 }
 
 void SortowanieWieloFib::sortujPrzezScalanieFaza1(){
+	std::cout << "sorfaza1\n";
 	zrodlo1->przesunZapisNaKoniec(); //przygotowanie zapisu scalonego ciągu na końcu najkrótszego pliku
 	sortowaniePrzezScalaniePlik(zrodlo1, zrodlo2, zrodlo1);
 }
 
 void SortowanieWieloFib::sortujPrzezScalanieFaza2(){
+	std::cout << "sortfaza2\n";
 	pusty->resetuj();//przygotowanie celu pod zapis
 	sortowaniePrzezScalaniePlik(zrodlo1, zrodlo3, pusty);
 }
 
 void SortowanieWieloFib::sortowaniePrzezScalaniePlik(FileHandler* zrodlo1, FileHandler* zrodlo2, FileHandler* cel){
+	std::cout << "sortplik\n";
 	int petla=zrodlo1->getDlugoscPliku()/zrodlo1->getWielkoscBloku();
 	for(int i = 0; i < petla; i++){
 		sortowaniePrzezScalanieBlok(zrodlo1, zrodlo2, cel);
@@ -104,6 +114,7 @@ void SortowanieWieloFib::sortowaniePrzezScalaniePlik(FileHandler* zrodlo1, FileH
 }
 
 void SortowanieWieloFib::sortowaniePrzezScalanieBlok(FileHandler* zrodlo1, FileHandler* zrodlo2, FileHandler* cel){
+	std::cout << "sortblok\n";
 	int i=0;
 	int j=0;
 	int a, b;
@@ -115,26 +126,30 @@ void SortowanieWieloFib::sortowaniePrzezScalanieBlok(FileHandler* zrodlo1, FileH
 			i++;
 			if(i<zrodlo1->getWielkoscBloku())
 				zrodlo1->strumien >> a;
+			std::cout << "a wieksze\n";
 		}
 		else{
 			cel->strumien << b << " ";
 			j++;
 			if(j<zrodlo2->getWielkoscBloku())
 				zrodlo2->strumien >> b;
+			std::cout << "b wieksze\n";
 		}
 	}
 	if(i==zrodlo1->getWielkoscBloku()){
 		for(j; j<zrodlo2->getWielkoscBloku();j++){
-			cel->strumien << b;
-			if(j<zrodlo2->getWielkoscBloku())
+			cel->strumien << b << " ";
+			if(j<zrodlo2->getWielkoscBloku()-1)
 				zrodlo2->strumien >> b;
+			std::cout << "wyrownanie b\n";
 		}
 	}
 	else{
 		for(i; i<zrodlo1->getWielkoscBloku(); i++){
-			cel->strumien << a;
-			if(i<zrodlo1->getWielkoscBloku())
+			cel->strumien << a << " ";
+			if(i<zrodlo1->getWielkoscBloku()-1)
 				zrodlo1->strumien >> a;
+			std::cout << "wyrownanie a\n";
 		}
 	}	
 }
