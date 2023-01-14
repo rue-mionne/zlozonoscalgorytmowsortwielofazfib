@@ -1,13 +1,21 @@
 #include "sortowanieWieloFib.h"
+#include "dystrybucja.h"
 #include "fileHandler.h"
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 
-SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki){
+SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki):dystrybucja(n){
 	this->n=n;
 	pojemniczek.pliki=pliki;
 	count = 0;
+
+}
+
+//TODO: ukoncz start
+void SortowanieWieloFib::start(){
+	dystrybucja.dzialaj();	
+	sortuj();
 
 }
 
