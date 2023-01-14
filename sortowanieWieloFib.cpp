@@ -94,6 +94,8 @@ void SortowanieWieloFib::sortujPrzezScalanieFaza1(){
 	std::cout << "sorfaza1\n";
 	zrodlo1->przesunZapisNaKoniec(); //przygotowanie zapisu scalonego ciągu na końcu najkrótszego pliku
 	sortowaniePrzezScalaniePlik(zrodlo1, zrodlo2, zrodlo1);
+	zrodlo1->setWielkoscBloku(zrodlo1->getWielkoscBloku()+zrodlo2->getWielkoscBloku());
+	zrodlo1->setDlugoscPliku(zrodlo1->getDlugoscPliku()*2);
 }
 
 void SortowanieWieloFib::sortujPrzezScalanieFaza2(){
@@ -106,10 +108,11 @@ void SortowanieWieloFib::sortowaniePrzezScalaniePlik(FileHandler* zrodlo1, FileH
 	std::cout << "sortplik\n";
 	int petla=zrodlo1->getDlugoscPliku()/zrodlo1->getWielkoscBloku();
 	for(int i = 0; i < petla; i++){
+		zrodlo1->strumienIn.clear();
 		sortowaniePrzezScalanieBlok(zrodlo1, zrodlo2, cel);
 	}
 	pusty->resetuj();
-	pusty->setWielkoscBloku(zrodlo1->getWielkoscBloku()+zrodlo2->getWielkoscBloku()+zrodlo3->getWielkoscBloku());
+	pusty->setWielkoscBloku(zrodlo1->getWielkoscBloku()+zrodlo3->getWielkoscBloku());
 	pusty->setDlugoscPliku(petla*pusty->getWielkoscBloku());
 }
 
@@ -118,37 +121,39 @@ void SortowanieWieloFib::sortowaniePrzezScalanieBlok(FileHandler* zrodlo1, FileH
 	int i=0;
 	int j=0;
 	int a, b;
-	zrodlo1->strumien >> a;
-	zrodlo2->strumien >> b;
+	zrodlo1->strumienIn >> a;
+	zrodlo2->strumienIn >> b;
 	while(i<zrodlo1->getWielkoscBloku()&&j<zrodlo2->getWielkoscBloku()){
 		if(le(a,b)){
-			cel->strumien << a << " ";
+			cel->strumienOut << a << " ";
 			i++;
-			if(i<zrodlo1->getWielkoscBloku())
-				zrodlo1->strumien >> a;
-			std::cout << "a wieksze\n";
+			if(i<zrodlo1->getWielkoscBloku()){
+				zrodlo1->strumienIn >> a;
+				zrodlo1->strumienIn.clear();
+			}
+			std::cout << a << "a wieksze\n";
 		}
 		else{
-			cel->strumien << b << " ";
+			cel->strumienOut << b << " ";
 			j++;
 			if(j<zrodlo2->getWielkoscBloku())
-				zrodlo2->strumien >> b;
-			std::cout << "b wieksze\n";
+				zrodlo2->strumienIn >> b;
+			std::cout << b <<"b wieksze\n";
 		}
 	}
 	if(i==zrodlo1->getWielkoscBloku()){
 		for(j; j<zrodlo2->getWielkoscBloku();j++){
-			cel->strumien << b << " ";
+			cel->strumienOut << b << " ";
 			if(j<zrodlo2->getWielkoscBloku()-1)
-				zrodlo2->strumien >> b;
+				zrodlo2->strumienIn >> b;
 			std::cout << "wyrownanie b\n";
 		}
 	}
 	else{
 		for(i; i<zrodlo1->getWielkoscBloku(); i++){
-			cel->strumien << a << " ";
+			cel->strumienOut << a << " ";
 			if(i<zrodlo1->getWielkoscBloku()-1)
-				zrodlo1->strumien >> a;
+				zrodlo1->strumienIn >> a;
 			std::cout << "wyrownanie a\n";
 		}
 	}	

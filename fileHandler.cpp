@@ -7,21 +7,25 @@ FileHandler::FileHandler(std::string sciezka){
 }
 
 void FileHandler::otworzPlik(){
-	strumien.open(sciezka, std::ios_base::in | std::ios_base::out | std::ios_base::binary);
-	strumien.seekp(0);
-	strumien.seekg(0);
+	strumienIn.open(sciezka, std::ios_base::in | std::ios_base::binary);
+	strumienOut.open(sciezka, std::ios_base::out |std::ios_base::in| std::ios_base::ate| std::ios_base::binary);
+	strumienOut.seekp(0);
+	strumienIn.seekg(0);
 }
 
 void FileHandler::przesunZapisNaKoniec(){
-	strumien.seekp(0, std::ios_base::end);
+	std::streampos zapis = strumienIn.tellg();
+	strumienOut.seekp(-1, std::ios_base::end);
+	strumienIn.seekg(zapis);
 }
 
 void FileHandler::resetuj(){
-	strumien.seekp(0, std::ios_base::beg);//przesuniecie wskaznikow odczytu i zapisu na poczatek
-	strumien.seekg(0, std::ios_base::beg);
-	strumien.clear(); //usuniecie ewentualnej flagi konca pliku
+	strumienOut.seekp(0, std::ios_base::beg);//przesuniecie wskaznikow odczytu i zapisu na poczatek
+	strumienIn.seekg(0, std::ios_base::beg);
+	strumienIn.clear(); //usuniecie ewentualnej flagi konca pliku
 }
 
 void FileHandler::zakoncz(){
-	strumien.close();
+	strumienIn.close();
+	strumienOut.close();
 }

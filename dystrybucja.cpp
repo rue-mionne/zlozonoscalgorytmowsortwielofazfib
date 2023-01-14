@@ -29,7 +29,7 @@ std::vector<int> * Dystrybucja::dzialaj(){
 	}
 	pojemnik->opiekunowie[3]->przesunZapisNaKoniec(); //przygotowanie pliku zrodlowego do ostatniej dystrybucji: brakujaca liczba elementow zostaje uzupelniona +nieskonczonoscia uzyskanej dzieki bibliotece limits
 	for(int i=suma-n; i>0; i--){
-		pojemnik->opiekunowie[3]->strumien << std::numeric_limits<int>::max() << " ";
+		pojemnik->opiekunowie[3]->strumienOut << std::numeric_limits<int>::max() << " ";
 	}
 	przydzielPartie(tablicaPodzialu);
 	delete tablicaPodzialu;
@@ -89,8 +89,8 @@ void Dystrybucja::przydzielPartie(int* tablicaPodzialu){
 	for(int i = 0; i<3; i++){
 		for(int j = 0; j<tablicaPodzialu[i]; j++){
 			int temp;
-			pojemnik->opiekunowie[3]->strumien >> temp;
-			pojemnik->opiekunowie[i]->strumien << temp << " ";
+			pojemnik->opiekunowie[3]->strumienIn >> temp;
+			pojemnik->opiekunowie[i]->strumienOut << temp << " ";
 		}
 	}
 }

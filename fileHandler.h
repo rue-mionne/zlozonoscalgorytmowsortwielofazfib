@@ -10,7 +10,8 @@ class FileHandler{
 		int dlugoscPliku;
 		int wielkoscBloku;
 	public:
-		std::fstream strumien;
+		std::fstream strumienIn;
+		std::fstream strumienOut;
 		FileHandler(std::string);
 		void otworzPlik();
 		void przesunZapisNaKoniec();
