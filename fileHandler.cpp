@@ -14,9 +14,26 @@ void FileHandler::otworzPlik(){
 }
 
 void FileHandler::przesunZapisNaKoniec(){
-	std::streampos zapis = strumienIn.tellg();
-	strumienOut.seekp(-1, std::ios_base::end);
-	strumienIn.seekg(zapis);
+	std::fstream seeker(sciezka);
+	int trash;
+	for(int i=0; i<dlugoscPliku;i++){
+		seeker >> trash;
+	}
+	int pozycja = seeker.tellg();
+	seeker.seekp(pozycja);
+	pozycja = seeker.tellp();
+	seeker.close();
+	strumienOut.seekp(pozycja+1);
+}
+
+void FileHandler::odswiez(){
+	int temp1 = strumienIn.tellg();
+	int temp2 = strumienOut.tellp();
+	strumienIn.close();
+	strumienOut.close();
+	otworzPlik();
+	strumienIn.seekg(temp1);
+	strumienOut.seekp(temp2);
 }
 
 void FileHandler::resetuj(){

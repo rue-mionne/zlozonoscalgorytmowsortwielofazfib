@@ -92,10 +92,13 @@ void SortowanieWieloFib::sortowaniePrzezScalanie(){
 
 void SortowanieWieloFib::sortujPrzezScalanieFaza1(){
 	std::cout << "sorfaza1\n";
+	
 	zrodlo1->przesunZapisNaKoniec(); //przygotowanie zapisu scalonego ciągu na końcu najkrótszego pliku
 	sortowaniePrzezScalaniePlik(zrodlo1, zrodlo2, zrodlo1);
 	zrodlo1->setWielkoscBloku(zrodlo1->getWielkoscBloku()+zrodlo2->getWielkoscBloku());
 	zrodlo1->setDlugoscPliku(zrodlo1->getDlugoscPliku()*2);
+	zrodlo1->odswiez();
+	zrodlo2->odswiez();
 }
 
 void SortowanieWieloFib::sortujPrzezScalanieFaza2(){
@@ -123,6 +126,9 @@ void SortowanieWieloFib::sortowaniePrzezScalanieBlok(FileHandler* zrodlo1, FileH
 	int a, b;
 	zrodlo1->strumienIn >> a;
 	zrodlo2->strumienIn >> b;
+	if(zrodlo1->strumienIn.eof()){
+		std::cout << "No kurwa\n";
+	}
 	while(i<zrodlo1->getWielkoscBloku()&&j<zrodlo2->getWielkoscBloku()){
 		if(le(a,b)){
 			cel->strumienOut << a << " ";
