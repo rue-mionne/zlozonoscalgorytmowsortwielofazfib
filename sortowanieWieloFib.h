@@ -18,11 +18,10 @@ class SortowanieWieloFib:public Itestable{
 //SERIA ZMIENNYCH TYMCZASOWO PUBLICZNYCH
 		int petla;
 
-		ZmiennePomSortowania pojemniczek;
-		std::vector<int> FibTab[4]; //wektor<T>: struktura przypominająca listę dwustronnie łączoną w implementacji tablicowej, jej zaletą, którą projekt wykorzystuje jest szybki dostęp do ostatniego elementu i jej duża elastyczność, ponadto ewentualne zmiany wymagajace dostepu do innych elementow nie wplyna negatywnie na wydajnosc (w przeciwienstwie do list<T>, bedacej lista w implementacji wskaznikowej)
-	private:
-
 		Dystrybucja dystrybucja;
+		ZmiennePomSortowania pojemniczek;
+		private:
+
 
 		FileHandler* pusty;
 		FileHandler* zrodlo1;

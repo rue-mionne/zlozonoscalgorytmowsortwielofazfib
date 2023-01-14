@@ -43,7 +43,7 @@ void SortowanieWieloFib::przygotujDoSortowania(){
 	
 	for(int i = 0; i<3; i++){
 		pojemniczek.opiekunowie[i]->setWielkoscBloku(1);
-		pojemniczek.opiekunowie[i]->setDlugoscPliku(FibTab[i].back());
+		pojemniczek.opiekunowie[i]->setDlugoscPliku(pojemniczek.FibTab[i].back());
 	}
 }
 

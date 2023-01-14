@@ -8,10 +8,9 @@ class Dystrybucja{
 	public:
 		Dystrybucja(int size, ZmiennePomSortowania* pojemnik);
 		ZmiennePomSortowania * pojemnik;	
-		std::vector<int> * dzialaj();
+		void dzialaj();
 		int n;
-	private:
-		std::vector<int> FibTab[4];
+	//private:
 		void wyliczRzad();
 		void wyliczSume();
 		int* wyliczPodzial(); // uwaga alokuje tablice
