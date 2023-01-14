@@ -14,8 +14,10 @@ void FileHandler::otworzPlik(){
 }
 
 void FileHandler::przesunZapisNaKoniec(){
+	int start = strumienIn.tellg();
 	std::fstream seeker(sciezka);
 	int trash;
+	seeker.seekg(start);
 	for(int i=0; i<dlugoscPliku;i++){
 		seeker >> trash;
 	}
