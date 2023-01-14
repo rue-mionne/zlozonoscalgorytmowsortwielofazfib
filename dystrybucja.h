@@ -6,7 +6,7 @@
 
 class Dystrybucja{
 	public:
-		Dystrybucja(int size);
+		Dystrybucja(int size, ZmiennePomSortowania* pojemnik);
 		ZmiennePomSortowania * pojemnik;	
 		std::vector<int> * dzialaj();
 		int n;

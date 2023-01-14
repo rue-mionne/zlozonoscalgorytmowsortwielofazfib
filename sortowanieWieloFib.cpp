@@ -4,8 +4,10 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 
-SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki):dystrybucja(n){
+SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki):dystrybucja(n, &pojemniczek){
+	std::cout << "\nKonstr sort";
 	this->n=n;
 	pojemniczek.pliki=pliki;
 	count = 0;

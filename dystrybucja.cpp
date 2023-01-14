@@ -1,10 +1,15 @@
 #include "dystrybucja.h"
 #include "fileHandler.h"
+#include "zmiennePomSortowania.h"
 #include <cstdint>
 #include <vector>
 #include <limits>
+#include <iostream> //debugging
 
-Dystrybucja::Dystrybucja(int size):n(size){}
+Dystrybucja::Dystrybucja(int size, ZmiennePomSortowania* pojemnik):n(size){
+	this->pojemnik=pojemnik;
+	std::cout << "\nDystrkonstr";
+}
 
 std::vector<int> * Dystrybucja::dzialaj(){
 	//otwarcie plikow
@@ -32,6 +37,9 @@ std::vector<int> * Dystrybucja::dzialaj(){
 }
 
 void Dystrybucja::wyliczRzad(){
+
+	std::cout << "\nRząd";
+
 	if(FibTab[0].empty()){
 		FibTab[0].emplace_back(1);
 		FibTab[1].emplace_back(1);
@@ -47,10 +55,14 @@ void Dystrybucja::wyliczRzad(){
 }
 
 void Dystrybucja::wyliczSume(){
+	std::cout << "\nSuma";
+
+
 	FibTab[3].emplace_back(FibTab[0].back()+FibTab[1].back()+FibTab[2].back());
 }
 
 int* Dystrybucja::wyliczPodzial(){
+	std::cout << "\nPodzial";
 	if(FibTab[0].size()==1){
 		int* tab = new int [4];
 		for(int i = 0; i<4; i++){

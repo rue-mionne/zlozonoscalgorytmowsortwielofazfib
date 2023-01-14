@@ -1,5 +1,8 @@
 #include "itestable.h"
 
+std::map<int, int*> Itestable::wynikiAlgorytmu;
+int Itestable::id;
+
 bool Itestable::lt(int a, int b){
 	count++;
 	return a<b;
