@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include <ios>
 #include <iostream>
 #include <ostream>
 
@@ -27,6 +28,7 @@ int SortowanieWieloFib::sortuj(){
 	std::cout <<"\nsortuj";
 	przygotujDoSortowania();
 	sortowaniePrzezScalanie();
+	przepisz();
 	return 0; //placeholder
 }
 
@@ -166,4 +168,13 @@ void SortowanieWieloFib::sortowaniePrzezScalanieBlok(FileHandler* zrodlo1, FileH
 	}	
 }
 
-
+void SortowanieWieloFib::przepisz(){
+	std::fstream wyniki;
+	int liczba;
+	temp->resetuj();
+	wyniki.open("plikZWynikami.txt", std::ios_base::out|std::ios_base::binary);
+	for(int i=0; i<n;i++){
+		temp->strumienIn >> liczba;
+		wyniki << liczba << " ";
+	}
+}

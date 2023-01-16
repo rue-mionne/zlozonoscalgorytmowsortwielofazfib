@@ -1,40 +1,54 @@
 #include "test.h"
-#include "functionbase.h"
-
+#include "fileHandler.h"
 #include "itestable.h"
 #include "licznik.h"
-#include <istream>
-#include <iterator>
+#include "sortowanieWieloFib.h"
+#include <ios>
 #include <string>
 #include <cstdlib>
-#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <ctime>
 
-Test::Test(){
-	//this->algorytm=new Algorytm(wskfunkcja, "test");
+Test::Test(int start, int koniec, int repeats):licznik(new Timer(start, koniec, repeats)){
+	std::string pliki[4]={"pliki/plik1", "pliki/plik2", "pliki/plik3", "pliki/plik4"};
 }
 
-
-
-void Test::wykonajTest(){
+void Test::wykonajTest(int n){
+	prepareData(n);
+	algorytm= new SortowanieWieloFib(n, pliki);
 	algorytm->start();
+	delete algorytm;
 
 }
 
-void Test::inicjujTest(int start, int koniec, int repeats){
-	licznik=new Timer(start,koniec, repeats);
+void Test::prepareData(int n){
+	std::fstream egzekutor;
+	for(int i=0;i<4;i++){
+		egzekutor.open(pliki[i], std::ios_base::out);
+		egzekutor.close();
+	}
+	int liczbaPseudoLosowa;
+	egzekutor.open(pliki[3], std::ios_base::out|std::ios_base::binary);
+	for(int i=0;i<n;i++){
+		liczbaPseudoLosowa = std::rand()%n;
+		egzekutor << liczbaPseudoLosowa << " ";
+	}
+	egzekutor.close();
 }
 
 void Test::rozpocznijSerię(){
+	srand(time(NULL));
 	try{
 		while(true){
-			//algorytm=new Itestable(licznik->getRangeCount());//placeholder
+			algorytm=new SortowanieWieloFib(licznik->getRangeCount(),pliki);	
 			licznik->stepRange();
 			try{
 				while(true){
+					prepareData(n);
 					algorytm->start();
+					delete algorytm;
 					licznik->stepRepeat();
 				}
 			}

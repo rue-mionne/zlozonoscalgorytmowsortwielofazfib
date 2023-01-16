@@ -6,14 +6,13 @@
 #include <string>
 #include <map>
 #include "test.h"
+#include "itestable.h"
 
 class Mainframe{
 	private:
-		std::map<std::string, Test> testBase;
 	public:
 		void startMainframe();
-		void addTest(std::string, int);
-		void menuGlowne();
+	//	void addTest(Itestable*, int);
 		
 };
 

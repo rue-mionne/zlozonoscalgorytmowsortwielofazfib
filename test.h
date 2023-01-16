@@ -8,13 +8,16 @@
 
 class Test{
 	private:
+		std::string pliki[4];
 		int n;
 		Itestable* algorytm;
 		Timer* licznik;
+		void prepareData(int);
+		void losuj(int);
 	
   public:
-		Test();
-		void wykonajTest();
+		Test(int, int, int);
+		void wykonajTest(int);
 		void inicjujTest(int, int, int);
 		void rozpocznijSerię();
 		std::string wyswietlWyniki();

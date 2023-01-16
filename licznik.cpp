@@ -9,10 +9,13 @@ Timer::Timer(int min_n, int max_n, int repeats){
 }
 
 int Timer::stepRange(){
-	if(range.count>=range.end){
+	if(range.count>range.end){
 		throw new EndOfRangeExc;
 	}
-	range.count+=100; 
+	if(range.count<1000)
+		range.count+=100;
+	else if(range.count<10000)
+		range.count+=1000;
 	return range.count;
 }
 

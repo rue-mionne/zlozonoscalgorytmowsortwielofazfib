@@ -17,6 +17,7 @@ class Itestable{
 		bool ne(int, int);
 		void zakonczAlg();
 	public:
+	//	virtual ~Itestable();
 		virtual void start()=0;
 		int getn(){return n;}
 		int getCount(){return count;}
