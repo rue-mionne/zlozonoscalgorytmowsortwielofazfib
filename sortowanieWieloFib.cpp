@@ -16,6 +16,14 @@ SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki):dystrybucja(n,
 
 }
 
+SortowanieWieloFib::~SortowanieWieloFib(){
+	for(int i=0; i<4;i++){
+		pojemniczek.opiekunowie[i]->zakoncz();
+		delete pojemniczek.opiekunowie[i];
+	}
+
+}
+
 //TODO: ukoncz start
 void SortowanieWieloFib::start(){
 	std::cout << "\nstart";

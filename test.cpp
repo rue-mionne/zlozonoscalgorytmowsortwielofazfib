@@ -12,7 +12,10 @@
 #include <ctime>
 
 Test::Test(int start, int koniec, int repeats):licznik(new Timer(start, koniec, repeats)){
-	std::string pliki[4]={"pliki/plik1", "pliki/plik2", "pliki/plik3", "pliki/plik4"};
+	pliki[0] = "pliki/plik1";
+	pliki[1] = "pliki/plik2";
+	pliki[2] = "pliki/plik3";
+	pliki[3] = "pliki/plik4";
 }
 
 void Test::wykonajTest(int n){
@@ -32,14 +35,13 @@ void Test::prepareData(int n){
 	int liczbaPseudoLosowa;
 	egzekutor.open(pliki[3], std::ios_base::out|std::ios_base::binary);
 	for(int i=0;i<n;i++){
-		liczbaPseudoLosowa = std::rand()%n;
+		liczbaPseudoLosowa =((rand())%1000);
 		egzekutor << liczbaPseudoLosowa << " ";
 	}
 	egzekutor.close();
 }
 
 void Test::rozpocznijSerię(){
-	srand(time(NULL));
 	try{
 		while(true){
 			algorytm=new SortowanieWieloFib(licznik->getRangeCount(),pliki);	

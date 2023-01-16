@@ -14,6 +14,7 @@ class SortowanieWieloFib:public Itestable{
 		SortowanieWieloFib(int, std::string*);
 		int sortuj();
 		void start()override;
+		~SortowanieWieloFib();
 
 //SERIA ZMIENNYCH TYMCZASOWO PUBLICZNYCH
 		int petla;
