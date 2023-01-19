@@ -10,8 +10,8 @@ void Regresja::wyslijDoGnuplot(){
 	std::fstream skryptOut(script);
 	skryptOut << "set terminal postscript eps color solid enhanced font \"Times-Roman, 26\"\n"
 		  << "set output \"statystykaTest.ps\"\n"
-		  << "f(x) = a*x\n"
-		  << "fit f(x) \"" << data << "\" u 1:2 via a\n"
+		  << "f(x) = a*x*log(b*x)/log(2)\n"
+		  << "fit f(x) \"" << data << "\" u 1:2 via a,b\n"
 		  << "plot f(x) w lines, \"" << data << "\" u 1:2 w points t \'stat\'";
 	skryptOut.close();
 	pid_t pid;

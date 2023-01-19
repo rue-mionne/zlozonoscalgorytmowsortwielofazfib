@@ -42,4 +42,5 @@ void Itestable::zakonczAlg(){
 	tab[0]=n;
 	tab[1]=count;
 	wynikiAlgorytmu.emplace(id, tab);
+	id++;
 }

@@ -17,19 +17,20 @@ SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki):dystrybucja(n,
 }
 
 SortowanieWieloFib::~SortowanieWieloFib(){
-	for(int i=0; i<4;i++){
+/*	for(int i=0; i<4;i++){
 		pojemniczek.opiekunowie[i]->zakoncz();
 		delete pojemniczek.opiekunowie[i];
 	}
-
+*/
 }
 
 //TODO: ukoncz start
 void SortowanieWieloFib::start(){
 	std::cout << "\nstart";
+	count = 0;
 	dystrybucja.dzialaj();	
 	sortuj();
-
+	zakonczAlg();
 }
 
 int SortowanieWieloFib::sortuj(){
@@ -185,4 +186,9 @@ void SortowanieWieloFib::przepisz(){
 		temp->strumienIn >> liczba;
 		wyniki << liczba << " ";
 	}
+	for(int i=0; i<4;i++){
+		pojemniczek.opiekunowie[i]->zakoncz();
+		delete pojemniczek.opiekunowie[i];
+	}
+
 }

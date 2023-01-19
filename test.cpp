@@ -3,6 +3,7 @@
 #include "itestable.h"
 #include "licznik.h"
 #include "sortowanieWieloFib.h"
+#include <cstdio>
 #include <ios>
 #include <string>
 #include <cstdlib>
@@ -29,7 +30,7 @@ void Test::wykonajTest(int n){
 void Test::prepareData(int n){
 	std::fstream egzekutor;
 	for(int i=0;i<4;i++){
-		egzekutor.open(pliki[i], std::ios_base::out);
+		egzekutor.open(pliki[i], std::ios_base::out | std::ios_base::trunc);
 		egzekutor.close();
 	}
 	int liczbaPseudoLosowa;
@@ -44,23 +45,23 @@ void Test::prepareData(int n){
 void Test::rozpocznijSerię(){
 	try{
 		while(true){
-			algorytm=new SortowanieWieloFib(licznik->getRangeCount(),pliki);	
-			licznik->stepRange();
+			std::cout << "step range\n";
 			try{
 				while(true){
-					prepareData(n);
+					algorytm=new SortowanieWieloFib(licznik->getRangeCount(),pliki);	
+					prepareData(licznik->getRangeCount());
 					algorytm->start();
-					delete algorytm;
 					licznik->stepRepeat();
+					delete algorytm;
 				}
 			}
-			catch(EndOfRepeatCycle){
-			
+			catch(EndOfRepeatCycle* e){
 			}
+			licznik->stepRange();
 		}
 	}
-	catch(EndOfRangeExc){
-	
+	catch(EndOfRangeExc* e){
+		std::cout << "Koniec zakresu\n";
 	}
 }
 
@@ -73,7 +74,8 @@ std::string Test::wyswietlWyniki(){
 		int* tab=it->second;
 		strumien << tab[0] << " " << tab[1] << "\n";
 	}
-	strumien >> wyniki;
+	std::getline(strumien,wyniki,',');
+	//strumien >> wyniki;
 	return wyniki;
 }
 
