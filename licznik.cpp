@@ -14,11 +14,11 @@ int Timer::stepRange(){
 		throw new EndOfRangeExc;
 	}
 	if(range.count<1000){
-		range.count+=100;
+		range.count+=10;
 		std::cout << "up\n";
 	}
 	else if(range.count<10000)
-		range.count+=1000;
+		range.count+=100;
 	return range.count;
 }
 
