@@ -12,17 +12,15 @@
 class SortowanieWieloFib:public Itestable{
 	public: 
 		SortowanieWieloFib(int, std::string*);
-		int sortuj();
 		void start()override;
 		~SortowanieWieloFib();
 
-//SERIA ZMIENNYCH TYMCZASOWO PUBLICZNYCH
+	private:
+
 		int petla;
 
 		Dystrybucja dystrybucja;
 		ZmiennePomSortowania pojemniczek;
-		private:
-
 
 		FileHandler* pusty;
 		FileHandler* zrodlo1;
@@ -32,10 +30,10 @@ class SortowanieWieloFib:public Itestable{
 
 		void wyliczRzad();
 		void wyliczFibSume();
-		int* wyliczPodzial(); //uwaga, alokuje tablice
+		int* wyliczPodzial();
 		void przydzielPartie(int* , int);
 		
-	public:	
+		void sortuj();
 		void przygotujDoSortowania();
 		void zmianaPlikow();
 		void sortowaniePrzezScalanie();

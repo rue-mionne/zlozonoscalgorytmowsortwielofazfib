@@ -8,76 +8,79 @@
 #include <iostream>
 #include <ostream>
 
+//
+//Konstruktor: przypisanie n, inicjacja obiektu odpowiadajacego za dystrybucje danych, zapisanie nazw plikow w obiekcie na dane dzielone, zainicjowanie liczby operacji dominujacych
+//
+
 SortowanieWieloFib::SortowanieWieloFib(int n, std::string* pliki):dystrybucja(n, &pojemniczek){
-	std::cout << "\nKonstr sort";
 	this->n=n;
 	pojemniczek.pliki=pliki;
 	count = 0;
 
 }
 
+//
+//Dekonstruktor; pusty
+//
+
+
 SortowanieWieloFib::~SortowanieWieloFib(){
-/*	for(int i=0; i<4;i++){
-		pojemniczek.opiekunowie[i]->zakoncz();
-		delete pojemniczek.opiekunowie[i];
-	}
-*/
 }
 
-//TODO: ukoncz start
+//
+//Start algorytmu
+//
+
 void SortowanieWieloFib::start(){
-	std::cout << "\nstart";
-	count = 0;
-	dystrybucja.dzialaj();	
-	sortuj();
-	zakonczAlg();
+	dystrybucja.dzialaj();	//uruchomienie dystrybucji wartosci miedzy plikami
+	sortuj(); //wywolanie funkcji sortujacej
+	zakonczAlg(); //zapisanie liczby sortowanych elementow i operacji dominujacych w mapie
 }
 
-int SortowanieWieloFib::sortuj(){
-	std::cout <<"\nsortuj";
+//
+//Funkcja zbierajaca trzy etapy sortowania; ze wzgledu na czytelnosc
+//
+void SortowanieWieloFib::sortuj(){
 	przygotujDoSortowania();
-	sortowaniePrzezScalanie();
-	przepisz();
-	return 0; //placeholder
+	sortowaniePrzezScalanie();//rdzen scalania wielofazowego; nazwa troche mylaca
+	przepisz();//przepisanie posortowanego ciagu do pliku "plikZWynikami.txt"
 }
 
 //
 //Funkcje pomocnicze sortowania
 //
 
+//
+//Przypisanie opiekunow plikow do etykiet sterujacych, ustawienie poczatkowej wartosci bloku i dlugosci pliku liczonej w elementach
+//
 void SortowanieWieloFib::przygotujDoSortowania(){
-	std::cout << "\nprzygotuj\n" ;
 	zrodlo1=pojemniczek.opiekunowie[0];
 	zrodlo2=pojemniczek.opiekunowie[1];
 	zrodlo3=pojemniczek.opiekunowie[2];
 	pusty=pojemniczek.opiekunowie[3];
 	
 	for(int i = 0; i<3; i++){
-		pojemniczek.opiekunowie[i]->setWielkoscBloku(1);
-		pojemniczek.opiekunowie[i]->setDlugoscPliku(pojemniczek.FibTab[i].back());
+		pojemniczek.opiekunowie[i]->setWielkoscBloku(1); //poczatkowo wszystkie bloki maja wielkosc 1
+		pojemniczek.opiekunowie[i]->setDlugoscPliku(pojemniczek.FibTab[i].back());//dlugosc kazdego pliku jest zapisana w tablicy list wyliczonej przez dystrybucje
 	}
 }
 
-void SortowanieWieloFib::zmianaPlikow(){ //konieczne wyznaczenie plikow o najmniejszej i najwiekszej ilosci blokow: kolejnym celem jest zawsze ten o najmniejszej ilosci, ale sam algorytm nie przesuwa sie cyklicznie
-	std::cout << "zmiana\n";
-	
-	temp=pusty;
+//
+//Po wykonanym sortowaniu nalezy wyznaczyc nowy plik zapisu
+//
+void SortowanieWieloFib::zmianaPlikow(){ 	
+	temp=pusty; //zapisanie adresu pliku, ktory byl plikiem zapisu w poprzedniej iteracji
 	int liczbaBlokow[3];
-	FileHandler* tempHandlery[3];
+	FileHandler* tempHandlery[3]; //tymczasowe miejsca na adresy
 	tempHandlery[0]=zrodlo2;
 	liczbaBlokow[0]=zrodlo2->getDlugoscPliku()/zrodlo2->getWielkoscBloku();
-
-	std::cout << "liczba blokow plik 2 " << liczbaBlokow[0] << "\n";
-
+	//kazdy plik poza plikiem, ktory w poprzedniej iteracji mial najmniejsza ilosc blokow (bedzie kolejnym plikiem zapisu w aktualnej iteracji) zostaje podpiety pod tymczasowe miejsce a w tablicy zapisana zostaje jego wyliczona ilosc blokow
 	tempHandlery[1]=zrodlo3;
 	liczbaBlokow[1]=zrodlo3->getDlugoscPliku()/zrodlo3->getWielkoscBloku();
-
-	std::cout << "liczba blokow plik 3 " << liczbaBlokow[1] << "\n";
 
 	tempHandlery[2]=temp;
 	liczbaBlokow[2]=temp->getDlugoscPliku()/temp->getWielkoscBloku();
 
-	std::cout << "liczba blokow pusty " << liczbaBlokow[2] << "\n";
 	int max=0, min=0, mid=0;
 	for(int i=1;i<3;i++){  //wyliczenie pozycji plikow dla 4 plikow WAZNE! dla wiekszej ilosci potrzebny dodatkowy algorytm dla podzialu - w tym przypadku bylby to jednak przyrost formy nad trescia
 		if(liczbaBlokow[max]<liczbaBlokow[i]){
@@ -91,85 +94,87 @@ void SortowanieWieloFib::zmianaPlikow(){ //konieczne wyznaczenie plikow o najmni
 		if(max!=i&&min!=i)
 			mid=i;
 	}
-	petla=liczbaBlokow[min];
-	pusty=zrodlo1;
-	zrodlo1=tempHandlery[min];
+	pusty=zrodlo1; //plik bez blokow (wszystkie jego bloki zostaly posortowane w poprzedniej iteracji) zostaje oznaczony jako pusty plik do zapisu
+	zrodlo1=tempHandlery[min];//plik zrodel zostaje posortowane rosnaco wedlug liczby blokow
 	zrodlo2=tempHandlery[mid];
 	zrodlo3=tempHandlery[max];
 
 }
 
+//
+//rdzen sortowania, tu proces jest dzielony na fazy i powtarzany
+//
 void SortowanieWieloFib::sortowaniePrzezScalanie(){
-	std::cout << "sortmain\n";
-	int wielkoscBloku=0;
-	while(wielkoscBloku<n){
-		petla=zrodlo1->getDlugoscPliku()/zrodlo1->getWielkoscBloku();
-		sortujPrzezScalanieFaza1();
-		sortujPrzezScalanieFaza2();
-		wielkoscBloku = pusty->getWielkoscBloku();
-		zmianaPlikow();
+	int wielkoscBloku=0; //zmienna przechowujaca najwieksza wielkos bloku
+	while(wielkoscBloku<n){ //algorytm konczy sie, kiedy blok jest rowny liczbie elementow: calosc jest posortowana
+		petla=zrodlo1->getDlugoscPliku()/zrodlo1->getWielkoscBloku();//liczba sortowan zalezy od ilosci blokow pliku, ktory ma ich najmniej
+		sortujPrzezScalanieFaza1(); //sortowanie przez scalanie blokow z plikow 1 i 2
+		sortujPrzezScalanieFaza2(); //sortowanie przez scalanie scalonych w fazie 1 blokow z blokami pliku3
+		wielkoscBloku = pusty->getWielkoscBloku(); //aktualizacja wielkosci najwiekszego bloku
+		zmianaPlikow(); //zmiana rol plikow
 
 	}
 }
 
 void SortowanieWieloFib::sortujPrzezScalanieFaza1(){
 	zrodlo1->przesunZapisNaKoniec(); //przygotowanie zapisu scalonego ciągu na końcu najkrótszego pliku
-	sortowaniePrzezScalaniePlik(zrodlo1, zrodlo2, zrodlo1);
-	zrodlo1->setWielkoscBloku(zrodlo1->getWielkoscBloku()+zrodlo2->getWielkoscBloku());
-	zrodlo1->setDlugoscPliku(zrodlo1->getDlugoscPliku()*2);
-	zrodlo2->setDlugoscPliku(zrodlo2->getDlugoscPliku()-(zrodlo2->getWielkoscBloku()*petla));
-	zrodlo1->odswiez();
-	zrodlo2->odswiez();
+	sortowaniePrzezScalaniePlik(zrodlo1, zrodlo2, zrodlo1); //opis funkcji nizej
+	zrodlo1->setWielkoscBloku(zrodlo1->getWielkoscBloku()+zrodlo2->getWielkoscBloku()); //wielkosc bloku pliku 1 zostaje ustawiona jako wielkosc bloku scalonego z 1 i 2
+	zrodlo2->setDlugoscPliku(zrodlo2->getDlugoscPliku()-(zrodlo2->getWielkoscBloku()*petla));//dlugosc pliku 2 staje sie mniejsza o ilosc posortowanych elementow
+	zrodlo1->odswiez(); //funkcje stworzone z przymusu, wiecej informacji w pliku fileHandler.cpp
 }
 
 void SortowanieWieloFib::sortujPrzezScalanieFaza2(){
-	pusty->resetuj();//przygotowanie celu pod zapis
+	pusty->resetuj();//przygotowanie celu pod zapis, wskazniki odczytu i zapisu wracaja na poczatek
 	sortowaniePrzezScalaniePlik(zrodlo1, zrodlo3, pusty);
-	zrodlo3->setDlugoscPliku(zrodlo3->getDlugoscPliku()-zrodlo3->getWielkoscBloku()*petla);
-	pusty->resetuj();
-	pusty->setWielkoscBloku(zrodlo1->getWielkoscBloku()+zrodlo3->getWielkoscBloku());
-	pusty->setDlugoscPliku(petla*pusty->getWielkoscBloku());
+	zrodlo3->setDlugoscPliku(zrodlo3->getDlugoscPliku()-zrodlo3->getWielkoscBloku()*petla);//dlugosc pliku 3 staje sie mniejsza o ilosc posortowanych elementow
+	pusty->resetuj();//przygotowanie nowo zapisanego pliku pod odczyt
+	pusty->setWielkoscBloku(zrodlo1->getWielkoscBloku()+zrodlo3->getWielkoscBloku());//wielkosc bloku jest suma blokow plikow 1 (ktory jest suma plikow 1 i 2) i 3 
+	pusty->setDlugoscPliku(petla*pusty->getWielkoscBloku());//ilosc elementow jest rowna iloczynowi posortowanych blokow i dlugosci bloku
 
 }
 
+//
+//sortowanie przez scalanie na trzech plikach: dwoch zrodlach i jednym celu
+//
 void SortowanieWieloFib::sortowaniePrzezScalaniePlik(FileHandler* zrodlo1, FileHandler* zrodlo2, FileHandler* cel){
-	for(int i = 0; i < petla; i++){
-		zrodlo1->strumienIn.clear();
-		sortowaniePrzezScalanieBlok(zrodlo1, zrodlo2, cel);
+	for(int i = 0; i < petla; i++){ //dla kazdego bloku najmniejszego pliku
+		sortowaniePrzezScalanieBlok(zrodlo1, zrodlo2, cel);//scal bloki
 	}
 	}
-
+//
+//sortowanie przez scalanie bloku
+//
 void SortowanieWieloFib::sortowaniePrzezScalanieBlok(FileHandler* zrodlo1, FileHandler* zrodlo2, FileHandler* cel){
 	int i=0;
 	int j=0;
 	int a, b;
-	zrodlo1->strumienIn >> a;
+	zrodlo1->strumienIn >> a; //pobierz po elemencie z plikow
 	zrodlo2->strumienIn >> b;
-	while(i<zrodlo1->getWielkoscBloku()&&j<zrodlo2->getWielkoscBloku()){
-		if(le(a,b)){
-			cel->strumienOut << a << " ";
-			i++;
-			if(i<zrodlo1->getWielkoscBloku()){
-				zrodlo1->strumienIn >> a;
-				zrodlo1->strumienIn.clear();
+	while(i<zrodlo1->getWielkoscBloku()&&j<zrodlo2->getWielkoscBloku()){//dopoki w ktoryms bloku nie dojdzie sie do konca
+		if(le(a,b)){//le=lesser equal, operacja dominujaca mniejsze rowne
+			cel->strumienOut << a << " "; //jesli a jest mniejsze, zapisz je w pliku docelowymm
+			i++; //zaktualizuj pozycje w bloku zrodle 1
+			if(i<zrodlo1->getWielkoscBloku()){ //jesli cos jeszcze w bloku zostalo
+				zrodlo1->strumienIn >> a; //pobierz kolejny element
 			}
 		}
 		else{
-			cel->strumienOut << b << " ";
-			j++;
-			if(j<zrodlo2->getWielkoscBloku())
-				zrodlo2->strumienIn >> b;
+			cel->strumienOut << b << " ";//jesli b jest mniejsze, zapisz je w pliku docel
+			j++; //zaktualizuj pozycje w zrodle 2
+			if(j<zrodlo2->getWielkoscBloku())//jesli cos w bloku zostalo
+				zrodlo2->strumienIn >> b;//pobierz kolejny element
 		}
 	}
-	if(i==zrodlo1->getWielkoscBloku()){
-		for(j; j<zrodlo2->getWielkoscBloku();j++){
+	if(i==zrodlo1->getWielkoscBloku()){//jesli w bloku zrodla 1 skonczyly sie elementy
+		for(j; j<zrodlo2->getWielkoscBloku();j++){//przepisz pozostale elementy bloku zrodla 2
 			cel->strumienOut << b << " ";
 			if(j<zrodlo2->getWielkoscBloku()-1)
 				zrodlo2->strumienIn >> b;
 		}
 	}
-	else{
-		for(i; i<zrodlo1->getWielkoscBloku(); i++){
+	else{//jesli w bloku zrodla 2 skonczyly sie elementy
+		for(i; i<zrodlo1->getWielkoscBloku(); i++){//przepisz pozostale elementy bloku zrodla 1
 			cel->strumienOut << a << " ";
 			if(i<zrodlo1->getWielkoscBloku()-1)
 				zrodlo1->strumienIn >> a;
@@ -177,18 +182,22 @@ void SortowanieWieloFib::sortowaniePrzezScalanieBlok(FileHandler* zrodlo1, FileH
 	}	
 }
 
+//
+//Wyodrebnienie posortowanego ciagu do osobnego pliku
+//
+
 void SortowanieWieloFib::przepisz(){
 	std::fstream wyniki;
 	int liczba;
-	temp->resetuj();
-	wyniki.open("plikZWynikami.txt", std::ios_base::out|std::ios_base::binary);
+	temp->resetuj();//przygotowanie pliku z posortowanym ciagiem do odczytu
+	wyniki.open("plikZWynikami.txt", std::ios_base::out|std::ios_base::binary);//otwarcie pliku z wynikami
 	for(int i=0; i<n;i++){
-		temp->strumienIn >> liczba;
-		wyniki << liczba << " ";
+		temp->strumienIn >> liczba;//odczytanie z pliku elementu
+		wyniki << liczba << " ";//zapisanie elementu w pliku docelowym
 	}
 	for(int i=0; i<4;i++){
-		pojemniczek.opiekunowie[i]->zakoncz();
-		delete pojemniczek.opiekunowie[i];
+		pojemniczek.opiekunowie[i]->zakoncz();//zamkniecie plikow uzywanych do sortowania
+		delete pojemniczek.opiekunowie[i];//zwolnienie miejsca przez opiekonow plikow
 	}
 
 }
