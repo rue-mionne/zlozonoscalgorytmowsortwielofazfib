@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <ios>
 #include <string>
 #include <sys/types.h>
 #include <unistd.h>
@@ -7,8 +8,10 @@
 #include "regresja.h"
 
 void Regresja::wyslijDoGnuplot(){
-	std::fstream skryptOut(script);
-	skryptOut << "set terminal postscript eps color solid enhanced font \"Times-Roman, 26\"\n"
+	std::fstream skryptOut(script, std::ios_base::out);
+	skryptOut << "set terminal postscript eps color solid enhanced font \"Times-Roman, 22\"\n" 
+		<< "set ylabel \"Liczba operacji dominujacych\"\n"
+		<< "set xlabel \"Liczba elementow (n)\"\n"
 		  << "set output \"statystykaTest.ps\"\n"
 		  << "f(x) = a*x*log(b*x)/log(2)\n"
 		  << "g(x) = x*log(x)/log(2)\n"
