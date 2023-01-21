@@ -1,17 +1,16 @@
 #ifndef DYSTRYBUCJA_H
 #define DYSTRYBUCJA_H
 
-#include "sortowanieWieloFib.h"
+#include "zmiennePomSortowania.h"
 #include <vector>
 
 class Dystrybucja{
 	public:
+		Dystrybucja(int size, ZmiennePomSortowania* pojemnik);
 		ZmiennePomSortowania * pojemnik;	
-		std::vector<int> * dzialaj();
+		void dzialaj();
 		int n;
-	private:
-		Dystrybucja(int size);
-		std::vector<int> FibTab[4];
+	//private:
 		void wyliczRzad();
 		void wyliczSume();
 		int* wyliczPodzial(); // uwaga alokuje tablice

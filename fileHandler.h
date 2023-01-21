@@ -6,14 +6,16 @@
 
 class FileHandler{
 	private:
-		std::string sciezka;
 		int dlugoscPliku;
 		int wielkoscBloku;
 	public:
-		std::fstream strumien;
+		std::string sciezka;
+		std::fstream strumienIn;
+		std::fstream strumienOut;
 		FileHandler(std::string);
 		void otworzPlik();
 		void przesunZapisNaKoniec();
+		void odswiez();
 		void resetuj();
 		void zakoncz();
 		void setDlugoscPliku(int dlugosc){dlugoscPliku=dlugosc;}
