@@ -7,8 +7,11 @@
 #include <iostream>
 #include "regresja.h"
 
+//
+//funkcja wykorzystująca gnuplot do wyprodukowania wykresu
+//
 void Regresja::wyslijDoGnuplot(){
-	std::fstream skryptOut(script, std::ios_base::out);
+	std::fstream skryptOut(script, std::ios_base::out);//otwórz strumień
 	skryptOut << "set terminal postscript eps color solid enhanced font \"Times-Roman, 22\"\n" 
 		<< "set ylabel \"Liczba operacji dominujacych\"\n"
 		<< "set xlabel \"Liczba elementow (n)\"\n"
@@ -18,8 +21,9 @@ void Regresja::wyslijDoGnuplot(){
 		  << "fit f(x) \"" << data << "\" u 1:2 via a,b\n"
 		  << "plot g(x) title \'zlozonosc podrecznikowa\' w lines,\\\n"
 		  << " 	   f(x) w lines, \"" << data << "\" u 1:2 w points t \'stat\'";
-	skryptOut.close();
-	pid_t pid;
+	//zapisz skrypt w pliku
+	skryptOut.close();//zamknij plik
+	pid_t pid;//wywołanie nowego procesu - uruchomienie skryptu
 	pid = fork();
 	if(pid == 0){
 		execlp("gnuplot", "-c", script.c_str());
