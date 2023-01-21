@@ -20,10 +20,10 @@ int Timer::stepRange(){
 		throw new EndOfRangeExc;//natychmiast przerwij iteracje po ilości elementów
 	}
 	if(range.count<1000){//jeśli liczba elementów 100-1000
-		range.count+=100;//iteruj 
+		range.count+=50;//iteruj 
 	}
 	else if(range.count<10000)//jeśli liczba elementów 1000-10000
-		range.count+=1000;//iteruj
+		range.count+=500;//iteruj
 	return range.count;//zwróć aktualną liczbę elementów
 }
 
